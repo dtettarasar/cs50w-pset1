@@ -2,6 +2,10 @@ from django.shortcuts import render
 
 from . import util
 
+from markdown2 import Markdown
+
+markdowner = Markdown()
+
 def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
@@ -29,5 +33,6 @@ def view_entry(request, entry_title):
     else:
 
         return render(request, "encyclopedia/view_entry.html", {
-            "entries": util.list_entries()
+            "entry_title": entry_title,
+            "entry_data": markdowner.convert(entry_data),
         })
