@@ -20,6 +20,14 @@ def view_entry(request, entry_title):
     entry_data = util.get_entry(entry_title)
     print(entry_data)
 
-    return render(request, "encyclopedia/view_entry.html", {
-        "entries": util.list_entries()
-    })
+    if entry_data == None:
+
+            return render(request, "encyclopedia/no_entry_found.html", {
+            "entries": util.list_entries()
+        })
+    
+    else:
+
+        return render(request, "encyclopedia/view_entry.html", {
+            "entries": util.list_entries()
+        })

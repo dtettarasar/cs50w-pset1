@@ -1,0 +1,25 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Entry Not Found
+{% endblock %}
+
+{% block body %}
+    <h1>Entry Not Found</h1>
+
+    <div>
+        <p><strong>This entry does not exist !</strong></p>
+    </div>
+
+    <div>
+
+        <p>See all the existing entries below</p>
+
+    </div>
+    <ul>
+        {% for entry in entries %}
+            <li>{{ entry }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
