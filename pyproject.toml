@@ -1,7 +1,7 @@
 [project]
 name = "cs50w-pset1"
 version = "0.1.0"
-description = "Add your description here"
+description = "Source code for CS50W's Problem Set 1: Wiki"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
