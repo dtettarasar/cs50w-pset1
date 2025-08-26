@@ -5,10 +5,9 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{entry_title}}</h1>
 
     <div>
-        {{entry_data}}
+        {{entry_data |safe}}
     </div>
 
 {% endblock %}
