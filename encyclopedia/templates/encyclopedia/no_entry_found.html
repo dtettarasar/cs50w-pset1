@@ -18,7 +18,7 @@
     </div>
     <ul>
         {% for entry in entries %}
-            <a href="{% url 'view_entry' entry %}">{{ entry }}</a>
+            <a href="{% url 'encyclopedia:view_entry' entry %}">{{ entry }}</a>
         {% endfor %}
     </ul>
 

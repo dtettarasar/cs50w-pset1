@@ -58,4 +58,12 @@ def search_entry(request):
 
     """
     
-    return render(request, "encyclopedia/search_results.html")
+    if request.method == "POST":
+        
+        return render(request, "encyclopedia/search_results.html")
+    
+    else: 
+        
+        return render(request, "encyclopedia/no_entry_found.html", {
+            "entries": util.list_entries()
+        })
