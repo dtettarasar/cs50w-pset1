@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from . import util
 
@@ -60,10 +60,7 @@ def search_entry(request):
             
             print(f"Exact match: '{search_request}' is in entry_list")
             
-            return render(request, "encyclopedia/view_entry.html", {
-                "entry_title": search_request,
-                "entry_data": markdowner.convert(entry_data),
-            })
+            return redirect("encyclopedia:view_entry", entry_title=search_request)
         
         # If the query does not match the name of an encyclopedia entry, the user should instead be taken to a search results page that displays a list of all encyclopedia entries that have the query as a substring.
         # For example, if the search query were ytho, then Python should appear in the search results.
@@ -81,12 +78,6 @@ def search_entry(request):
             
             return render(request, "encyclopedia/search_results.html", {
                 "entries": search_result_list
-            })
-            
-        else:
-            
-            return render(request, "encyclopedia/no_entry_found.html", {
-                "entries": util.list_entries()
             })
             
     
