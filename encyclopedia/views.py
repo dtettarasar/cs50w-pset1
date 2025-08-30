@@ -22,7 +22,7 @@ def view_entry(request, entry_title):
     print(entry_title)
 
     entry_data = util.get_entry(entry_title)
-    print(entry_data)
+    # print(entry_data)
 
     if entry_data == None:
 
@@ -47,6 +47,8 @@ def search_entry(request):
         print("entry_list")
         print(entry_list)
         
+        search_result_list = []
+        
         search_request = request.POST['query']
         print("search_request: ")
         print(search_request)
@@ -70,20 +72,21 @@ def search_entry(request):
             
             if search_request in entry:
                 
-                print(f"'{search_request}' is in the entry '{entry}'")
+                search_result_list.append(entry)
         
-        # return render(request, "encyclopedia/search_results.html")
+        # print('search_result_list')
+        # print(search_result_list)
         
-        if entry_data == None:
+        if len(search_result_list) != 0:
             
-            return render(request, "encyclopedia/no_entry_found.html", {
-            "entries": util.list_entries()
-        })
+            return render(request, "encyclopedia/search_results.html", {
+                "entries": search_result_list
+            })
             
         else:
             
-            return render(request, "encyclopedia/search_results.html", {
-                "search_request": search_request
+            return render(request, "encyclopedia/no_entry_found.html", {
+                "entries": util.list_entries()
             })
             
     

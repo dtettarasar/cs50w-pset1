@@ -10,6 +10,14 @@
 
         <h1>Search Results</h1>
 
+        <ul class="list-group">
+
+            {% for entry in entries %}
+                <li class="list-group-item"><a href="{% url 'encyclopedia:view_entry' entry %}">{{ entry }}</a></li>
+            {% endfor %}
+
+        </ul>
+
     </div>
 
 {% endblock %}
