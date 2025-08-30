@@ -37,19 +37,32 @@ def view_entry(request, entry_title):
             "entry_data": markdowner.convert(entry_data),
         })
 
+# Allow the user to type a query into the search box in the sidebar to search for an encyclopedia entry.
 def search_entry(request):
     
     if request.method == "POST":
         
-        # print("search request:")
-        # print(request.POST)
+        entry_list = util.list_entries()
+        
+        print("entry_list")
+        print(entry_list)
         
         search_request = request.POST['query']
         print("search_request: ")
         print(search_request)
         
         entry_data = util.get_entry(search_request)
-        print(entry_data)
+        
+        # If the query matches the name of an encyclopedia entry, the user should be redirected to that entry’s page.
+        if search_request in entry_list:
+            
+            print(f"{search_request} is in entry_list")
+            
+            return render(request, "encyclopedia/view_entry.html", {
+                "entry_title": search_request,
+                "entry_data": markdowner.convert(entry_data),
+            })
+        
         
         # return render(request, "encyclopedia/search_results.html")
         
@@ -61,7 +74,9 @@ def search_entry(request):
             
         else:
             
-            return render(request, "encyclopedia/search_results.html")
+            return render(request, "encyclopedia/search_results.html", {
+                "search_request": search_request
+            })
             
     
     else: 
