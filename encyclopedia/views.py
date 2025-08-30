@@ -56,13 +56,21 @@ def search_entry(request):
         # If the query matches the name of an encyclopedia entry, the user should be redirected to that entry’s page.
         if search_request in entry_list:
             
-            print(f"{search_request} is in entry_list")
+            print(f"Exact match: '{search_request}' is in entry_list")
             
             return render(request, "encyclopedia/view_entry.html", {
                 "entry_title": search_request,
                 "entry_data": markdowner.convert(entry_data),
             })
         
+        # If the query does not match the name of an encyclopedia entry, the user should instead be taken to a search results page that displays a list of all encyclopedia entries that have the query as a substring.
+        # For example, if the search query were ytho, then Python should appear in the search results.
+        
+        for entry in entry_list:
+            
+            if search_request in entry:
+                
+                print(f"'{search_request}' is in the entry '{entry}'")
         
         # return render(request, "encyclopedia/search_results.html")
         
