@@ -10,6 +10,7 @@ markdowner = Markdown()
 
 class NewEntryForm(forms.Form):
     title = forms.CharField(label='title', max_length=50)
+    body = forms.CharField(widget=forms.Textarea(attrs={"rows":8, "cols":10}))
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
