@@ -27,7 +27,7 @@ def view_entry(request, entry_title):
     if entry_data == None:
 
             return render(request, "encyclopedia/no_entry_found.html", {
-            "entries": util.list_entries()
+            "entries": util.list_entries(),
         })
     
     else:
