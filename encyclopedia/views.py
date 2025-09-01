@@ -1,10 +1,15 @@
 from django.shortcuts import render, redirect
 
+from django import forms
+
 from . import util
 
 from markdown2 import Markdown
 
 markdowner = Markdown()
+
+class NewEntryForm(forms.Form):
+    title = forms.CharField(label='title', max_length=50)
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -13,7 +18,7 @@ def index(request):
 
 def create(request):
     return render(request, "encyclopedia/create_entry.html", {
-        "entries": util.list_entries()
+        'form': NewEntryForm()
     })
 
 def view_entry(request, entry_title):
