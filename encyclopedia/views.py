@@ -18,6 +18,30 @@ def index(request):
     })
 
 def create(request):
+    
+    if request.method == "POST":
+        
+        form = NewEntryForm(request.POST)
+        
+        if form.is_valid():
+            
+            form_data = {
+                
+                'title': form.cleaned_data['title'],
+                'body' : form.cleaned_data['body']
+                
+            }
+            
+            print('form_data: ')
+            print(form_data)
+            
+            return redirect("encyclopedia:index")
+        
+    else:
+        
+        form = NewEntryForm(request.POST)
+    
+    
     return render(request, "encyclopedia/create_entry.html", {
         'form': NewEntryForm()
     })
