@@ -48,10 +48,12 @@ def create(request):
                 
             }
             
-            print('form_data: ')
-            print(form_data)
+            # print('form_data: ')
+            # print(form_data)
             
-            return redirect("encyclopedia:index")
+            # The encyclopedia entry should be saved to disk, and the user should be taken to the new entry’s page.
+            util.save_entry(form_data["title"], form_data["body"])
+            return redirect("encyclopedia:view_entry", entry_title=form_data["title"])
         
         else:
             
