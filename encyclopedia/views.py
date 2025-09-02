@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 
 from django import forms
 
+from django.core.exceptions import ValidationError
+
 from . import util
 
 from markdown2 import Markdown
@@ -9,8 +11,22 @@ from markdown2 import Markdown
 markdowner = Markdown()
 
 class NewEntryForm(forms.Form):
+    
     title = forms.CharField(label='title', max_length=50)
     body = forms.CharField(widget=forms.Textarea(attrs={"rows":8, "cols":10}))
+    
+    def clean_title(self):
+        
+        data = self.cleaned_data["title"]
+        
+        # When the page is saved, if an encyclopedia entry already exists with the provided title, the user should be presented with an error message.
+        entry_list = util.list_entries()
+        
+        if data in entry_list:
+            
+            raise ValidationError('Error: This title is already used for another entry')
+        
+        return data
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -35,23 +51,21 @@ def create(request):
             print('form_data: ')
             print(form_data)
             
-            # When the page is saved, if an encyclopedia entry already exists with the provided title, the user should be presented with an error message.
-            entry_list = util.list_entries()
-            
-            if form_data['title'] in entry_list:
-                
-                print('Error: This entry already exist in the database')
-            
-            
             return redirect("encyclopedia:index")
+        
+        else:
+            
+            return render(request, "encyclopedia/create_entry.html", {
+                'form': form
+            })
         
     else:
         
-        form = NewEntryForm(request.POST)
+        form = NewEntryForm()
     
     
     return render(request, "encyclopedia/create_entry.html", {
-        'form': NewEntryForm()
+        'form': form
     })
 
 def view_entry(request, entry_title):
