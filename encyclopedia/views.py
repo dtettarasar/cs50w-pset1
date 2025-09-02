@@ -35,6 +35,14 @@ def create(request):
             print('form_data: ')
             print(form_data)
             
+            # When the page is saved, if an encyclopedia entry already exists with the provided title, the user should be presented with an error message.
+            entry_list = util.list_entries()
+            
+            if form_data['title'] in entry_list:
+                
+                print('Error: This entry already exist in the database')
+            
+            
             return redirect("encyclopedia:index")
         
     else:
