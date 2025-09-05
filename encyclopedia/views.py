@@ -76,6 +76,8 @@ def edit(request, entry_title):
     print("entry_title: ")
     print(entry_title)
     
+    entry_data = util.get_entry(entry_title)
+    
     """
     if request.method == "POST":
         
@@ -88,7 +90,7 @@ def edit(request, entry_title):
     """
     
     return render(request, "encyclopedia/edit_entry.html", {
-        'form': NewEntryForm(),
+        'form': NewEntryForm(initial={"title": entry_title, "body": entry_data}),
         'entry_title': entry_title
     })
 
