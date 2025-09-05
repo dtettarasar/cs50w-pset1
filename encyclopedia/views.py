@@ -28,6 +28,11 @@ class NewEntryForm(forms.Form):
         
         return data
 
+class EditEntryForm(forms.Form):
+    
+    title = forms.CharField(label='title', max_length=50, disabled=True)
+    body = forms.CharField(widget=forms.Textarea(attrs={"rows":8, "cols":10}))
+
 def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
@@ -78,19 +83,18 @@ def edit(request, entry_title):
     
     entry_data = util.get_entry(entry_title)
     
-    """
+    
     if request.method == "POST":
         
-        form = NewEntryForm(request.POST)
+        form = EditEntryForm(request.POST)
         
     else: 
         
-        form = NewEntryForm()
+        form = EditEntryForm(initial={"title": entry_title, "body": entry_data})
     
-    """
     
     return render(request, "encyclopedia/edit_entry.html", {
-        'form': NewEntryForm(initial={"title": entry_title, "body": entry_data}),
+        'form': form,
         'entry_title': entry_title
     })
 
