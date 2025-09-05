@@ -86,8 +86,36 @@ def edit(request, entry_title):
     
     if request.method == "POST":
         
+        print("accessing edit entry page (POST Method)")
+        
         form = EditEntryForm(request.POST)
         
+        if form.is_valid():
+            
+            print("ok: form value valid")
+            
+            form_data = {
+                
+                'title': form.cleaned_data['title'],
+                'body' : form.cleaned_data['body']
+                
+            }
+            
+            print('form_data: ')
+            print(form_data)
+            
+        else:
+            
+            print("error: form value not valid")
+            print(form.errors.as_data())
+            
+            form = EditEntryForm(initial={"title": entry_title, "body": entry_data})
+            
+            return render(request, "encyclopedia/edit_entry.html", {
+                'form': form,
+                'entry_title': entry_title
+            })
+            
     else: 
         
         form = EditEntryForm(initial={"title": entry_title, "body": entry_data})
