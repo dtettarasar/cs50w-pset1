@@ -70,6 +70,28 @@ def create(request):
         'form': form
     })
 
+def edit(request, entry_title):
+    
+    print("accessing edit entry page")
+    print("entry_title: ")
+    print(entry_title)
+    
+    """
+    if request.method == "POST":
+        
+        form = NewEntryForm(request.POST)
+        
+    else: 
+        
+        form = NewEntryForm()
+    
+    """
+    
+    return render(request, "encyclopedia/edit_entry.html", {
+        'form': NewEntryForm(),
+        'entry_title': entry_title
+    })
+
 def view_entry(request, entry_title):
 
     print("entry_title: ")
