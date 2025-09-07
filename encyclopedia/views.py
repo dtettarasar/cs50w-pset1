@@ -1,3 +1,5 @@
+import random
+
 from django.shortcuts import render, redirect
 
 from django import forms
@@ -163,6 +165,11 @@ def random_view_entry(request):
 
     print("entry list")
     print(entry_list)
+
+    random_entry = random.choice(entry_list)
+
+    print('random_entry')
+    print(random_entry)
 
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
