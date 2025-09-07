@@ -155,6 +155,19 @@ def view_entry(request, entry_title):
             "entry_data": markdowner.convert(entry_data),
         })
 
+def random_view_entry(request):
+
+    entry_list = util.list_entries()
+
+    print("get access to random view entry")
+
+    print("entry list")
+    print(entry_list)
+
+    return render(request, "encyclopedia/index.html", {
+        "entries": util.list_entries()
+    })
+
 # Allow the user to type a query into the search box in the sidebar to search for an encyclopedia entry.
 def search_entry(request):
     
