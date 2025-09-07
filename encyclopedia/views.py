@@ -77,6 +77,8 @@ def create(request):
 
 def edit(request, entry_title):
     
+    # Edit Page: On each entry page, the user should be able to click a link to be taken to a page where the user can edit that entry’s Markdown content in a textarea. 
+    
     print("accessing edit entry page")
     print("entry_title: ")
     print(entry_title)
@@ -92,7 +94,7 @@ def edit(request, entry_title):
         
         if form.is_valid():
             
-            print("ok: form value valid")
+            # print("ok: form value valid")
             
             form_data = {
                 
@@ -101,15 +103,21 @@ def edit(request, entry_title):
                 
             }
             
-            print('form_data: ')
-            print(form_data)
+            # print('form_data: ')
+            # print(form_data)
+            
+            # Once the entry is saved, the user should be redirected back to that entry’s page.
+            util.save_entry(entry_title, form_data["body"])
+            return redirect("encyclopedia:view_entry", entry_title=entry_title)
             
         else:
             
             print("error: form value not valid")
             print(form.errors.as_data())
             
-            form = EditEntryForm(initial={"title": entry_title, "body": entry_data})
+            # The textarea should be pre-populated with the existing Markdown content of the page. (i.e., the existing content should be the initial value of the textarea).
+            
+            form = EditEntryForm(initial={"body": entry_data})
             
             return render(request, "encyclopedia/edit_entry.html", {
                 'form': form,
