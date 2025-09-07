@@ -30,7 +30,7 @@ class NewEntryForm(forms.Form):
 
 class EditEntryForm(forms.Form):
     
-    title = forms.CharField(label='title', max_length=50, disabled=True)
+    # title = forms.CharField(label='title', max_length=50, disabled=True)
     body = forms.CharField(widget=forms.Textarea(attrs={"rows":8, "cols":10}))
 
 def index(request):
@@ -96,7 +96,7 @@ def edit(request, entry_title):
             
             form_data = {
                 
-                'title': form.cleaned_data['title'],
+                # 'title': form.cleaned_data['title'],
                 'body' : form.cleaned_data['body']
                 
             }

@@ -7,6 +7,8 @@
 {% block body %}
     <h1>Edit page</h1>
 
+    <h2> {{entry_title}} </h2>
+
     <form action="{% url 'encyclopedia:edit_entry' entry_title %}" method="post">
 
         {% csrf_token %}
