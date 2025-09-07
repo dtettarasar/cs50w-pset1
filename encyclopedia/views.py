@@ -171,9 +171,7 @@ def random_view_entry(request):
     print('random_entry')
     print(random_entry)
 
-    return render(request, "encyclopedia/index.html", {
-        "entries": util.list_entries()
-    })
+    return redirect("encyclopedia:view_entry", entry_title=random_entry)
 
 # Allow the user to type a query into the search box in the sidebar to search for an encyclopedia entry.
 def search_entry(request):
