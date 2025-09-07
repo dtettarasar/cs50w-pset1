@@ -159,17 +159,11 @@ def view_entry(request, entry_title):
 
 def random_view_entry(request):
 
+    # Clicking “Random Page” in the sidebar should take user to a random encyclopedia entry.
+
     entry_list = util.list_entries()
 
-    print("get access to random view entry")
-
-    print("entry list")
-    print(entry_list)
-
     random_entry = random.choice(entry_list)
-
-    print('random_entry')
-    print(random_entry)
 
     return redirect("encyclopedia:view_entry", entry_title=random_entry)
 
